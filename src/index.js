@@ -78,6 +78,7 @@ class Main extends React.Component {
             ],
             numSaved: 0,
         }
+        this.saveLayer = this.saveLayer.bind(this)
         this.addLayer = this.addLayer.bind(this)
         this.canvasClicked = this.canvasClicked.bind(this)
         this.toLayers = this.toLayers.bind(this)
@@ -109,11 +110,15 @@ class Main extends React.Component {
                                 <button onClick={this.toSaved} className="tab" id="saved-tab">Saved</button>
                             </div>
                         </div>
-                        <LayerList tab={this.state.tab} layers={this.state.layers} saved={this.state.saved} />
+                        <LayerList tab={this.state.tab} layers={this.state.layers} saved={this.state.saved} deleteLayer={this.deleteLayer} />
                     </div>
                 </div>
             </div>
         )
+    }
+
+    saveLayer() {
+
     }
 
     toLayers() {
