@@ -12,7 +12,7 @@ class Main extends React.Component {
             tab: 1,
             layers: [
                 {
-                  name: '',
+                  name: 'Layer #1',
                   number: 1,
                   path: '',
                 }
@@ -136,36 +136,65 @@ class Main extends React.Component {
     }
 
     addLayer() {
-        const oldLayer = {
-          name: this.state.layers[this.state.numLayers].name,
+      let oldLayer
+      let newLayer
+      if (this.state.numLayers > 0) {
+        oldLayer = {
+          name: this.state.layers[this.state.numLayers - 1].name,
           number: this.state.numLayers,
           path: document.querySelector(`#path${this.state.numLayers}`).getAttribute('d'),
         }
-        const newLayer = {
+        newLayer = {
           name: `Layer #${this.state.numLayers + 1}`,
           number: this.state.numLayers + 1,
           path: '',
         }
-
+        
         this.state.layers.pop()
         this.setState(state => ({
             layers: state.layers.concat(oldLayer).concat(newLayer),
             numLayers: state.numLayers + 1,
             currentPath: ''
         }))
-        console.log(this.state.layers)
+      } else {
+        newLayer = {
+          name: 'Layer #1',
+          number: 1,
+          path: '',
+        }
+        this.setState(state => ({
+          layers: state.layers.concat(newLayer),
+          numLayers: 1,
+          currentPath: ''
+      }))
+      }
+
+      console.log(this.state.layers)
     }
 
     deleteLayer(num) {
         let half1 = this.state.layers.slice(0, num - 1)
         let half2 = this.state.layers.slice(num)
         if (num === this.state.numLayers) {
-          this.setState({ currentPath: '' })
+          this.setState({ 
+            currentPath: '',
+          })
         }
-        this.setState(state => ({
-            layers: half1.concat(half2),
-            numLayers: state.numLayers - 1,
-        }))
+        this.setState({ 
+          layers: half1,
+          numLayers: half1.length,
+        })
+        for (let i = 0; i < half2.length; i++) {
+          let newLayer = {
+            name: half2[i].name,
+            number: half2[i].number - 1,
+            path: half2[i].path,
+          }
+          this.setState({ 
+            layers: this.state.layers.concat(newLayer),
+            numLayers: this.state.numLayers++, 
+          })
+        }
     }
 
     changeName(e, num) {
@@ -191,7 +220,7 @@ function LayerList(props) {
         return (
             <div className="layers-container">
                 {props.layers.map(layer => (
-                    <Layer key={"layer" + layer.number} number={layer.number} deleteLayer={props.deleteLayer} changeName={props.changeName} />
+                    <Layer key={"layer" + layer.number} number={layer.number} name={layer.name} deleteLayer={props.deleteLayer} changeName={props.changeName} />
                 ))}
             </div>
         )
