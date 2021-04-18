@@ -355,12 +355,12 @@ button:active{
 .right-column{
   width: 40vw;
   height: 100vh;
-  display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   z-index: 100;
   display: none;
+  display: flex;
 }
 
 #col-header{
