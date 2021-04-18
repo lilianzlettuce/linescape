@@ -22,7 +22,7 @@ class Layer extends React.Component {
                     <button className="remove" id={"removeBtn" + this.props.number} onClick={() => { this.props.deleteLayer(this.props.number) }}>Remove</button>
                 </div>
                 <div className="btn-box">
-                    <input className="h2-input" defaultValue={"Layer #" + this.props.number} type="text" />
+                    <input className="h2-input" defaultValue={"Layer #" + this.props.number} type="text" onChange={(e) => {this.props.changeName(e, this.props.number)} } />
                     <div className="btn-box2">
                         <button className="genNew" id={"genNewBtn" + this.props.number}>New Scribble</button>
                     </div>
@@ -51,8 +51,6 @@ class Layer extends React.Component {
             </div>
         )
     }
-
-    
 
     hideLayer() {
         if (!this.state.hideClicked) {

@@ -12,8 +12,9 @@ class Main extends React.Component {
             tab: 1,
             layers: [
                 {
-                    number: 1,
-                    path: '',
+                  name: '',
+                  number: 1,
+                  path: '',
                 }
             ],
             paths: [
@@ -84,6 +85,7 @@ class Main extends React.Component {
         this.toLayers = this.toLayers.bind(this)
         this.toSaved = this.toSaved.bind(this)
         this.deleteLayer = this.deleteLayer.bind(this)
+        this.changeName = this.changeName.bind(this)
     }
 
     render() {
@@ -110,7 +112,7 @@ class Main extends React.Component {
                                 <button onClick={this.toSaved} className="tab" id="saved-tab">Saved</button>
                             </div>
                         </div>
-                        <LayerList tab={this.state.tab} layers={this.state.layers} saved={this.state.saved} deleteLayer={this.deleteLayer} />
+                        <LayerList tab={this.state.tab} layers={this.state.layers} saved={this.state.saved} deleteLayer={this.deleteLayer} changeName={this.changeName} />
                     </div>
                 </div>
             </div>
@@ -135,12 +137,14 @@ class Main extends React.Component {
 
     addLayer() {
         const oldLayer = {
-            number: this.state.numLayers,
-            path: document.querySelector(`#path${this.state.numLayers}`).getAttribute('d'),
+          name: this.state.layers[this.state.numLayers].name,
+          number: this.state.numLayers,
+          path: document.querySelector(`#path${this.state.numLayers}`).getAttribute('d'),
         }
         const newLayer = {
-            number: this.state.numLayers + 1,
-            path: '',
+          name: `Layer #${this.state.numLayers + 1}`,
+          number: this.state.numLayers + 1,
+          path: '',
         }
 
         this.state.layers.pop()
@@ -155,13 +159,25 @@ class Main extends React.Component {
     deleteLayer(num) {
         let half1 = this.state.layers.slice(0, num - 1)
         let half2 = this.state.layers.slice(num)
+        if (num === this.state.numLayers) {
+          this.setState({ currentPath: '' })
+        }
         this.setState(state => ({
             layers: half1.concat(half2),
-            numLayers: state.numLayers + 1,
-            currentPath: ''
+            numLayers: state.numLayers - 1,
         }))
     }
 
+    changeName(e, num) {
+      let half1 = this.state.layers.slice(0, num - 1)
+      let half2 = this.state.layers.slice(num)
+      const newLayer = {
+        name: e.target.value,
+        number: this.state.layers[num - 1].number,
+        path: this.state.layers[num - 1].path,
+      }
+      this.setState({ layers: half1.concat(newLayer).concat(half2) });
+    }
 }
 
 function Path(props) {
@@ -175,7 +191,7 @@ function LayerList(props) {
         return (
             <div className="layers-container">
                 {props.layers.map(layer => (
-                    <Layer key={"layer" + layer.number} number={layer.number} deleteLayer={props.deleteLayer} />
+                    <Layer key={"layer" + layer.number} number={layer.number} deleteLayer={props.deleteLayer} changeName={props.changeName} />
                 ))}
             </div>
         )
