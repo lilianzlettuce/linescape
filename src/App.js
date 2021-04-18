@@ -4,6 +4,20 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#email').value = 'turnips@gmail.com'
     document.querySelector('#password').value = 'password'
 
+    //temp login function
+    document.querySelector('#loginBtn').addEventListener('click', () => {
+        let email = document.querySelector('#email').value
+        let pass = document.querySelector('#password').value
+        if (email === 'turnips@gmail.com' && pass === 'password') {
+                //ui updates
+                document.querySelector('#login-page').style.left = '200vw'
+                document.querySelector('#login-page').style.opacity = '80%'
+                document.querySelector('#email').value = ''
+                document.querySelector('#password').value = ''
+                document.querySelector('.right-column').style.display = 'flex'
+        }
+    })
+
     /** 
     //login btn function
     document.querySelector('#loginBtn').addEventListener('click', () => {
