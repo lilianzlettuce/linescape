@@ -166,35 +166,38 @@ class Main extends React.Component {
           layers: state.layers.concat(newLayer),
           numLayers: 1,
           currentPath: ''
-      }))
+        }))
       }
 
       console.log(this.state.layers)
     }
 
     deleteLayer(num) {
-        let half1 = this.state.layers.slice(0, num - 1)
-        let half2 = this.state.layers.slice(num)
-        if (num === this.state.numLayers) {
-          this.setState({ 
-            currentPath: '',
-          })
-        }
+      let half1 = this.state.layers.slice(0, num - 1)
+      let half2 = this.state.layers.slice(num)
+      if (num === this.state.numLayers) {
         this.setState({ 
-          layers: half1,
-          numLayers: half1.length,
+          currentPath: '',
         })
-        for (let i = 0; i < half2.length; i++) {
-          let newLayer = {
-            name: half2[i].name,
-            number: half2[i].number - 1,
-            path: half2[i].path,
-          }
-          this.setState({ 
-            layers: this.state.layers.concat(newLayer),
-            numLayers: this.state.numLayers++, 
-          })
+      }
+      this.setState(state => ({
+        layers: half1,
+        numLayers: half1.length,
+      }))
+      console.log('numlayers' + this.state.numLayers)
+      for (let i = 0; i < half2.length; i++) {
+        console.log(this.state.numLayers)
+        const newLayer = {
+          name: half2[i].name,
+          number: this.state.numLayers + 1,
+          path: half2[i].path,
         }
+        this.setState(state => ({
+          layers: state.layers.concat(newLayer),
+          numLayers: state.numLayers++, 
+        }))
+      }
+      console.log(this.state.layers)
     }
 
     changeName(e, num) {
