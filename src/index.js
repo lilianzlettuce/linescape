@@ -15,6 +15,11 @@ class Main extends React.Component {
                   name: 'Layer #1',
                   number: 1,
                   path: '',
+                  length: 0,
+                  strokeWidth: 2,
+                  color: 'black',
+                  isScribble: false,
+                  animTime: 6,
                 }
             ],
             currentPath: '',
@@ -88,7 +93,7 @@ class Main extends React.Component {
                 {/* <LoginPage /> */}
                 <svg className="canvas" id="canvas1" onClick={this.canvasClicked} width="700" height="500">
                     {this.state.layers.map(layer => (
-                        <Path key={"path" + layer.number} number={layer.number} color="black" strokeWidth="2" d={layer.path} />
+                        <Path key={"path" + layer.number} number={layer.number} color={layer.color} strokeWidth={layer.strokeWidth} d={layer.path} />
                     ))}
                 </svg>
                 <div id="section">
@@ -140,16 +145,27 @@ class Main extends React.Component {
     addLayer() {
       let oldLayer
       let newLayer
+      let num = this.state.numLayers - 1
       if (this.state.numLayers > 0) {
         oldLayer = {
-          name: this.state.layers[this.state.numLayers - 1].name,
+          name: this.state.layers[num].name,
           number: this.state.numLayers,
           path: document.querySelector(`#path${this.state.numLayers}`).getAttribute('d'),
+          length: this.state.layers[num].length,
+          strokeWidth: this.state.layers[num].strokeWidth,
+          color: this.state.layers[num].color,
+          isScribble: this.state.layers[num].isScribble,
+          animTime: this.state.layers[num].animTime,
         }
         newLayer = {
           name: `Layer #${this.state.numLayers + 1}`,
           number: this.state.numLayers + 1,
           path: '',
+          length: 0,
+          strokeWidth: 2,
+          color: 'black',
+          isScribble: false,
+          animTime: 6,
         }
         
         this.state.layers.pop()
@@ -163,6 +179,11 @@ class Main extends React.Component {
           name: 'Layer #1',
           number: 1,
           path: '',
+          length: 0,
+          strokeWidth: 2,
+          color: 'black',
+          isScribble: false,
+          animTime: 6,
         }
         this.setState(state => ({
           layers: state.layers.concat(newLayer),
@@ -184,6 +205,11 @@ class Main extends React.Component {
           name: half2[i].name,
           number: half2[i].number - 1,
           path: half2[i].path,
+          length: half2[i].length,
+          strokeWidth: half2[i].strokeWidth,
+          color: half2[i].color,
+          isScribble: half2[i].isScribble,
+          animTime: half2[i].animTime,
         }
         newHalf2.push(newLayer)
       }
@@ -207,6 +233,11 @@ class Main extends React.Component {
         name: e.target.value,
         number: this.state.layers[num - 1].number,
         path: this.state.layers[num - 1].path,
+        length: this.state.layers[num - 1].length,
+        strokeWidth: this.state.layers[num - 1].strokeWidth,
+        color: this.state.layers[num - 1].color,
+        isScribble: this.state.layers[num - 1].isScribble,
+        animTime: this.state.layers[num - 1].animTime,
       }
       this.setState({ layers: half1.concat(newLayer).concat(half2) });
     }
@@ -214,7 +245,7 @@ class Main extends React.Component {
 
 function Path(props) {
     return (
-        <path id={"path" + props.number} className="draw" stroke={props.color} strokeLinecap="round" strokeWidth={props.strokeWidth} fill="transparent" d={props.d} />
+        <path id={"path" + props.number} className="draw" stroke={props.color} strokeLinecap="round" strokeWidth={props.strokeWidth} color={props.color} fill="transparent" d={props.d} />
     )
 }
 
