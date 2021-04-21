@@ -120,8 +120,22 @@ class Main extends React.Component {
     }
 
     saveLayer(num) {
+      let newName = this.state.layers[num - 1].name
+      let numReps = 0
+      let names = this.state.savedNames
+      for (let i = 0; i < names.length; i++) {
+        if (names[i].substring(0, names[i].length - 4) === newName) {
+          numReps++
+        }
+      }
+      if (numReps === 0) {
+        newName = this.state.layers[num - 1].name + '    '
+      } else {
+        newName = this.state.layers[num - 1].name + ' ' + (1.0 + numReps * 0.1)
+      }
+      console.log(newName)
       const newSaved = {
-        name: this.state.layers[num - 1].name,
+        name: newName,
         path: this.state.layers[num - 1].path,
         length: this.state.layers[num - 1].length,
         strokeWidth: this.state.layers[num - 1].strokeWidth,
@@ -133,6 +147,7 @@ class Main extends React.Component {
       this.setState(state => ({
         saved: state.saved.concat(newSaved),
         numSaved: state.numSaved + 1,
+        savedNames: state.savedNames.concat(newName),
       }))
     }
 
