@@ -18,7 +18,7 @@ class Layer extends React.Component {
                 <div className="btn-box btn-box-top">
                     <button className="reset" id={"resetBtn" + this.props.number} >Reset</button>
                     <button className="hide" id={"hideBtn" + this.props.number} onClick={this.hideLayer}>Hide</button>
-                    <button className="save" id={"saveLayerBtn" + this.props.number}>Save</button>
+                    <button className="save" id={"saveLayerBtn" + this.props.number} onClick={() => { this.props.saveLayer(this.props.number) }}>Save</button>
                     <button className="remove" id={"removeBtn" + this.props.number} onClick={() => { this.props.deleteLayer(this.props.number) }}>Remove</button>
                 </div>
                 <div className="btn-box">

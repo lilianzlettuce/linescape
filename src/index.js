@@ -17,12 +17,6 @@ class Main extends React.Component {
                   path: '',
                 }
             ],
-            paths: [
-                {
-                    number: '',
-                    d: ''
-                }
-            ],
             currentPath: '',
             numLayers: 1,
             saved: [
@@ -112,21 +106,29 @@ class Main extends React.Component {
                                 <button onClick={this.toSaved} className="tab" id="saved-tab">Saved</button>
                             </div>
                         </div>
-                        <LayerList tab={this.state.tab} layers={this.state.layers} saved={this.state.saved} deleteLayer={this.deleteLayer} changeName={this.changeName} />
+                        <LayerList tab={this.state.tab} layers={this.state.layers} saved={this.state.saved} deleteLayer={this.deleteLayer} saveLayer={this.saveLayer} changeName={this.changeName} />
                     </div>
                 </div>
             </div>
         )
     }
 
-    saveLayer() {
-
+    saveLayer(num) {
+      const newSaved = {
+        name: this.state.layers[num - 1].name,
+        path: this.state.layers[num - 1].path,
+        length: this.state.layers[num - 1].length,
+        strokeWidth: this.state.layers[num - 1].strokeWidth,
+        color: this.state.layers[num - 1].color,
+        number: num,
+        isScribble: this.state.layers[num - 1].isScribble,
+        animTime: this.state.layers[num - 1].animTime,
+      }
     }
 
     toLayers() {
         this.setState( {tab: 1} )
     }
-
     toSaved() {
         this.setState( {tab: 2} )
     }
@@ -221,7 +223,7 @@ function LayerList(props) {
         return (
             <div className="layers-container">
                 {props.layers.map(layer => (
-                    <Layer key={"layer" + layer.number} number={layer.number} name={layer.name} deleteLayer={props.deleteLayer} changeName={props.changeName} />
+                    <Layer key={"layer" + layer.number} number={layer.number} name={layer.name} deleteLayer={props.deleteLayer} saveLayer={props.saveLayer} changeName={props.changeName} />
                 ))}
             </div>
         )
