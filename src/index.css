@@ -390,9 +390,6 @@ button:active{
   transition: 1s ease;
   font-size: 1.6em;
 }
-.tab:hover{
-  background-color: rgb(230, 232, 255);
-}
 
 .clicked{
   background-color: var(--main);

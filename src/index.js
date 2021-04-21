@@ -86,6 +86,7 @@ class Main extends React.Component {
         this.toSaved = this.toSaved.bind(this)
         this.deleteLayer = this.deleteLayer.bind(this)
         this.changeName = this.changeName.bind(this)
+        this.changePath = this.changePath.bind(this)
     }
 
     render() {
@@ -112,7 +113,7 @@ class Main extends React.Component {
                                 <button onClick={this.toSaved} className="tab" id="saved-tab">Saved</button>
                             </div>
                         </div>
-                        <LayerList tab={this.state.tab} layers={this.state.layers} saved={this.state.saved} deleteLayer={this.deleteLayer} saveLayer={this.saveLayer} changeName={this.changeName} />
+                        <LayerList tab={this.state.tab} layers={this.state.layers} saved={this.state.saved} deleteLayer={this.deleteLayer} saveLayer={this.saveLayer} changeName={this.changeName} changePath={this.changePath} />
                     </div>
                 </div>
             </div>
@@ -163,7 +164,7 @@ class Main extends React.Component {
     }
     toSaved() {
       this.setState( {tab: 2} )
-      
+
       let savedTab = document.querySelector('#saved-tab')
       let layersTab = document.querySelector('#layers-tab')
       layersTab.style.color = "var(--main)"
@@ -263,17 +264,36 @@ class Main extends React.Component {
     changeName(e, num) {
       let half1 = this.state.layers.slice(0, num - 1)
       let half2 = this.state.layers.slice(num)
+      let layer = this.state.layers[num - 1]
       const newLayer = {
         name: e.target.value,
-        number: this.state.layers[num - 1].number,
-        path: this.state.layers[num - 1].path,
-        length: this.state.layers[num - 1].length,
-        strokeWidth: this.state.layers[num - 1].strokeWidth,
-        color: this.state.layers[num - 1].color,
-        isScribble: this.state.layers[num - 1].isScribble,
-        animTime: this.state.layers[num - 1].animTime,
+        number: layer.number,
+        path: layer.path,
+        length: layer.length,
+        strokeWidth: layer.strokeWidth,
+        color: layer.color,
+        isScribble: layer.isScribble,
+        animTime: layer.animTime,
       }
       this.setState({ layers: half1.concat(newLayer).concat(half2) });
+    }
+
+    changePath(e, num) {
+      let half1 = this.state.layers.slice(0, num - 1)
+      let half2 = this.state.layers.slice(num)
+      let layer = this.state.layers[num - 1]
+      const newLayer = {
+        name: layer.name,
+        number: layer.number,
+        path: e.target.value,
+        length: layer.length,
+        strokeWidth: layer.strokeWidth,
+        color: layer.color,
+        isScribble: layer.isScribble,
+        animTime: layer.animTime,
+      }
+      this.setState({ layers: half1.concat(newLayer).concat(half2) });
+      console.log(this.state.layers)
     }
 }
 
@@ -288,7 +308,7 @@ function LayerList(props) {
         return (
             <div className="layers-container">
                 {props.layers.map(layer => (
-                    <Layer key={"layer" + layer.number} number={layer.number} name={layer.name} deleteLayer={props.deleteLayer} saveLayer={props.saveLayer} changeName={props.changeName} />
+                    <Layer key={"layer" + layer.number} number={layer.number} name={layer.name} deleteLayer={props.deleteLayer} saveLayer={props.saveLayer} changeName={props.changeName} changePath={props.changePath} />
                 ))}
             </div>
         )
