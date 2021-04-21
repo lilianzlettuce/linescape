@@ -27,9 +27,9 @@ class Saved extends React.Component {
                 <div className="length-container">
                     <div className="length-heading">
                         <h3>Stroke Length</h3>
-                        <button className="copyLength" onClick={this.copyLength} id={"clBtn" + this.props.number}><i className="far fa-copy"></i></button>
+                        <button className="copyLength copy" onClick={this.copyLength} id={"clBtn" + this.props.number}><i className="far fa-copy"></i></button>
                         <h3 className="h3-margin-left">SVG Coordinates</h3>
-                        <button className="copyCoords" onClick={this.copyCoords} id={"ccBtn" + this.props.number}><i className="fas fa-copy"></i></button>
+                        <button className="copyCoords copy" onClick={this.copyCoords} id={"ccBtn" + this.props.number}><i className="fas fa-copy"></i></button>
                     </div>
                 </div>
     

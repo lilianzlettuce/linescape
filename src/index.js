@@ -87,6 +87,7 @@ class Main extends React.Component {
         this.deleteLayer = this.deleteLayer.bind(this)
         this.changeName = this.changeName.bind(this)
         this.changePath = this.changePath.bind(this)
+        this.reloadLength = this.reloadLength.bind(this)
     }
 
     render() {
@@ -113,7 +114,7 @@ class Main extends React.Component {
                                 <button onClick={this.toSaved} className="tab" id="saved-tab">Saved</button>
                             </div>
                         </div>
-                        <LayerList tab={this.state.tab} layers={this.state.layers} saved={this.state.saved} deleteLayer={this.deleteLayer} saveLayer={this.saveLayer} changeName={this.changeName} changePath={this.changePath} />
+                        <LayerList tab={this.state.tab} layers={this.state.layers} saved={this.state.saved} deleteLayer={this.deleteLayer} saveLayer={this.saveLayer} changeName={this.changeName} changePath={this.changePath} reloadLength={this.reloadLength} />
                     </div>
                 </div>
             </div>
@@ -294,6 +295,26 @@ class Main extends React.Component {
       }
       this.setState({ layers: half1.concat(newLayer).concat(half2) })
     }
+
+    reloadLength(e, num) {
+      let length = document.querySelector(`#path${num}`).getTotalLength()
+      document.querySelector(`#strokeLength${num}`).value = length
+      let half1 = this.state.layers.slice(0, num - 1)
+      let half2 = this.state.layers.slice(num)
+      let layer = this.state.layers[num - 1]
+      let newLayer = {
+        name: layer.name,
+        number: layer.number,
+        path: layer.path,
+        length: length,
+        strokeWidth: layer.strokeWidth,
+        color: layer.color,
+        isScribble: layer.isScribble,
+        animTime: layer.animTime,
+      }
+      this.setState({ layers: half1.concat(newLayer).concat(half2) })
+      console.log(length)
+  }
 }
 
 function Path(props) {
@@ -307,7 +328,7 @@ function LayerList(props) {
         return (
             <div className="layers-container">
                 {props.layers.map(layer => (
-                    <Layer key={"layer" + layer.number} number={layer.number} name={layer.name} deleteLayer={props.deleteLayer} saveLayer={props.saveLayer} changeName={props.changeName} changePath={props.changePath} />
+                    <Layer key={"layer" + layer.number} number={layer.number} name={layer.name} deleteLayer={props.deleteLayer} saveLayer={props.saveLayer} changeName={props.changeName} changePath={props.changePath} reloadLength={props.reloadLength} />
                 ))}
             </div>
         )

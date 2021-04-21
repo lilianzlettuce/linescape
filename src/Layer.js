@@ -10,7 +10,7 @@ class Layer extends React.Component {
         this.hideLayer = this.hideLayer.bind(this)
         this.copyCoords = this.copyCoords.bind(this)
         this.copyLength = this.copyLength.bind(this)
-        this.reloadLength = this.reloadLength.bind(this)
+        
     }
 
     render() {
@@ -38,7 +38,7 @@ class Layer extends React.Component {
                     <div className="length-heading">
                         <h3>Stroke Length</h3>
                         <button className="copyLength copy" onClick={this.copyLength} id={"copyLengthBtn" + this.props.number}><i className="far fa-copy"></i></button>
-                        <button className="reloadLength copy" onClick={this.reloadLength} id={"reloadLengthBtn" + this.props.number}><i className="fas fa-redo-alt"></i></button>
+                        <button className="reloadLength copy" onClick={(e) => {this.props.reloadLength(e, this.props.number)}} id={"reloadLengthBtn" + this.props.number}><i className="fas fa-redo-alt"></i></button>
                     </div>
                     <input readOnly type = "number" id={"strokeLength" + this.props.number} className="length-input" />
                 </div>
@@ -78,13 +78,6 @@ class Layer extends React.Component {
     copyLength() {
         document.querySelector("#strokeLength" + this.props.number).select()
         document.execCommand("copy")
-    }
-
-    //reload length when path inputted
-    reloadLength() {
-        let num = this.props.number
-        let length = document.querySelector(`#path${num}`).getTotalLength()
-        document.querySelector(`#strokeLength${num}`).value = length
     }
 
 }
