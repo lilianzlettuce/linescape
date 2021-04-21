@@ -131,7 +131,7 @@ class Main extends React.Component {
       if (numReps === 0) {
         newName = this.state.layers[num - 1].name + '    '
       } else {
-        newName = this.state.layers[num - 1].name + ' ' + (1.0 + numReps * 0.1)
+        newName = this.state.layers[num - 1].name + ' ' + ((1.0 + numReps * 0.1).toFixed(1))
       }
       console.log(newName)
       const newSaved = {
@@ -152,10 +152,24 @@ class Main extends React.Component {
     }
 
     toLayers() {
-        this.setState( {tab: 1} )
+      this.setState( {tab: 1} )
+
+      let savedTab = document.querySelector('#saved-tab')
+      let layersTab = document.querySelector('#layers-tab')
+      savedTab.style.color = "var(--main)"
+      savedTab.style.backgroundColor = "white"
+      layersTab.style.backgroundColor = "var(--main)"
+      layersTab.style.color = "white"
     }
     toSaved() {
-        this.setState( {tab: 2} )
+      this.setState( {tab: 2} )
+      
+      let savedTab = document.querySelector('#saved-tab')
+      let layersTab = document.querySelector('#layers-tab')
+      layersTab.style.color = "var(--main)"
+      layersTab.style.backgroundColor = "white"
+      savedTab.style.backgroundColor = "var(--main)"
+      savedTab.style.color = "white"
     }
 
     canvasClicked() {

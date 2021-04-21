@@ -314,26 +314,5 @@ document.addEventListener('DOMContentLoaded', () => {
         firstClick = true
     }) 
 
-    let tabOn = 1
-    let savedTab = document.querySelector('#saved-tab')
-    let layersTab = document.querySelector('#layers-tab')
-    let tabs = [...document.querySelectorAll('.tab')]
-    tabs.forEach(element => { 
-        element.addEventListener('click', () => {
-            if (tabOn === 1){
-                layersTab.style.color = "var(--main)"
-                layersTab.style.backgroundColor = "white"
-                savedTab.style.backgroundColor = "var(--main)"
-                savedTab.style.color = "white"
-                tabOn = 2
-            } else {
-                savedTab.style.color = "var(--main)"
-                savedTab.style.backgroundColor = "white"
-                layersTab.style.backgroundColor = "var(--main)"
-                layersTab.style.color = "white"
-                tabOn = 1
-            }
-        })
-    })
     
 })
