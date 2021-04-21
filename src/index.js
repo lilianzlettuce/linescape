@@ -85,7 +85,7 @@ class Main extends React.Component {
         this.toLayers = this.toLayers.bind(this)
         this.toSaved = this.toSaved.bind(this)
         this.deleteLayer = this.deleteLayer.bind(this)
-        this.changeName = this.changeName.bind(this)
+        this.updateLayer = this.updateLayer.bind(this)
         this.changePath = this.changePath.bind(this)
         this.reloadLength = this.reloadLength.bind(this)
     }
@@ -114,7 +114,7 @@ class Main extends React.Component {
                                 <button onClick={this.toSaved} className="tab" id="saved-tab">Saved</button>
                             </div>
                         </div>
-                        <LayerList tab={this.state.tab} layers={this.state.layers} saved={this.state.saved} deleteLayer={this.deleteLayer} saveLayer={this.saveLayer} changeName={this.changeName} changePath={this.changePath} reloadLength={this.reloadLength} />
+                        <LayerList tab={this.state.tab} layers={this.state.layers} saved={this.state.saved} deleteLayer={this.deleteLayer} saveLayer={this.saveLayer} updateLayer={this.updateLayer} changePath={this.changePath} reloadLength={this.reloadLength} />
                     </div>
                 </div>
             </div>
@@ -296,6 +296,38 @@ class Main extends React.Component {
       this.setState({ layers: half1.concat(newLayer).concat(half2) })
     }
 
+    updateLayer(e, num, stat) {
+      let half1 = this.state.layers.slice(0, num - 1)
+      let half2 = this.state.layers.slice(num)
+      let layer = this.state.layers[num - 1]
+      let stats = ['name', 'path', 'length', 'strokeWidth', 'color', 'isScribble', 'animTime']
+      let name1, number1, path1, length1, strokeWidth1, color1, isScribble1, animTime1
+      for (let i = 0; i < stats.length; i++) {
+        if (stat === stats[i]) {
+          eval(stats[i] + '1 = e.target.value')
+        } else {
+          eval(stats[i] + '1 = layer.' + stats[i])
+        }
+      }
+      
+      length1 = document.querySelector(`#path${num}`).getTotalLength()
+      document.querySelector(`#strokeLength${num}`).value = length1
+
+      let newLayer = {
+        name: name1,
+        number: number1,
+        path: path1,
+        length: length1,
+        strokeWidth: strokeWidth1,
+        color: color1,
+        isScribble: isScribble1,
+        animTime: animTime1,
+      }
+
+      this.setState({ layers: half1.concat(newLayer).concat(half2) })
+      alert(this.state.layers[0].name)
+    }
+
     reloadLength(e, num) {
       let length = document.querySelector(`#path${num}`).getTotalLength()
       document.querySelector(`#strokeLength${num}`).value = length
@@ -313,7 +345,6 @@ class Main extends React.Component {
         animTime: layer.animTime,
       }
       this.setState({ layers: half1.concat(newLayer).concat(half2) })
-      console.log(length)
   }
 }
 
@@ -328,7 +359,7 @@ function LayerList(props) {
         return (
             <div className="layers-container">
                 {props.layers.map(layer => (
-                    <Layer key={"layer" + layer.number} number={layer.number} name={layer.name} deleteLayer={props.deleteLayer} saveLayer={props.saveLayer} changeName={props.changeName} changePath={props.changePath} reloadLength={props.reloadLength} />
+                    <Layer key={"layer" + layer.number} number={layer.number} name={layer.name} deleteLayer={props.deleteLayer} saveLayer={props.saveLayer} updateLayer={props.updateLayer} changePath={props.changePath} reloadLength={props.reloadLength} />
                 ))}
             </div>
         )

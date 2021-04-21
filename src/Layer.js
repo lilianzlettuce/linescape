@@ -23,7 +23,7 @@ class Layer extends React.Component {
                     <button className="remove" id={"removeBtn" + this.props.number} onClick={() => { this.props.deleteLayer(this.props.number) }}>Remove</button>
                 </div>
                 <div className="btn-box">
-                    <input className="h2-input" defaultValue={this.props.name} type="text" onChange={(e) => {this.props.changeName(e, this.props.number)}} />
+                    <input className="h2-input" defaultValue={this.props.name} type="text" onChange={(e) => {this.props.updateLayer(e, this.props.number, 'name')}} />
                     <div className="btn-box2">
                         <button className="genNew" id={"genNewBtn" + this.props.number}>New Scribble</button>
                     </div>
