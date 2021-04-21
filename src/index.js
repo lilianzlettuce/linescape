@@ -77,6 +77,7 @@ class Main extends React.Component {
                 }
             ],
             numSaved: 0,
+            savedNames: [],
         }
         this.saveLayer = this.saveLayer.bind(this)
         this.addLayer = this.addLayer.bind(this)
@@ -125,10 +126,14 @@ class Main extends React.Component {
         length: this.state.layers[num - 1].length,
         strokeWidth: this.state.layers[num - 1].strokeWidth,
         color: this.state.layers[num - 1].color,
-        number: num,
+        number: this.state.numSaved + 1,
         isScribble: this.state.layers[num - 1].isScribble,
         animTime: this.state.layers[num - 1].animTime,
       }
+      this.setState(state => ({
+        saved: state.saved.concat(newSaved),
+        numSaved: state.numSaved + 1,
+      }))
     }
 
     toLayers() {
