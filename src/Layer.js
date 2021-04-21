@@ -10,6 +10,7 @@ class Layer extends React.Component {
         this.hideLayer = this.hideLayer.bind(this)
         this.copyCoords = this.copyCoords.bind(this)
         this.copyLength = this.copyLength.bind(this)
+        this.reloadLength = this.reloadLength.bind(this)
     }
 
     render() {
@@ -36,7 +37,8 @@ class Layer extends React.Component {
                 <div className="length-container">
                     <div className="length-heading">
                         <h3>Stroke Length</h3>
-                        <button className="copyLength" onClick={this.copyLength} id={"copyLengthBtn" + this.props.number}><i className="far fa-copy"></i></button>
+                        <button className="copyLength copy" onClick={this.copyLength} id={"copyLengthBtn" + this.props.number}><i className="far fa-copy"></i></button>
+                        <button className="reloadLength copy" onClick={this.reloadLength} id={"reloadLengthBtn" + this.props.number}><i className="fas fa-redo-alt"></i></button>
                     </div>
                     <input readOnly type = "number" id={"strokeLength" + this.props.number} className="length-input" />
                 </div>
@@ -44,7 +46,7 @@ class Layer extends React.Component {
                 <div className="coords-container">
                     <div className="coords-heading">
                         <h3>SVG Coordinates</h3>
-                        <button className="copyCoords" onClick={this.copyCoords} id={"copyCoordsBtn" + this.props.number}><i className="fas fa-copy"></i></button>
+                        <button className="copyCoords copy" onClick={this.copyCoords} id={"copyCoordsBtn" + this.props.number}><i className="fas fa-copy"></i></button>
                     </div>
                     <textarea id={"text-display" + this.props.number} name="paragraph_text" cols="50" rows="10" onChange={(e) => {this.props.changePath(e, this.props.number)}} ></textarea>
                 </div>
@@ -76,6 +78,13 @@ class Layer extends React.Component {
     copyLength() {
         document.querySelector("#strokeLength" + this.props.number).select()
         document.execCommand("copy")
+    }
+
+    //reload length when path inputted
+    reloadLength() {
+        let num = this.props.number
+        let length = document.querySelector(`#path${num}`).getTotalLength()
+        document.querySelector(`#strokeLength${num}`).value = length
     }
 
 }

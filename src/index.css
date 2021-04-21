@@ -76,7 +76,7 @@ textarea{
   padding: 10px 10px;
   margin: 0;
   color: var(--dark);
-  overflow-y: hidden;
+  overflow-y: scroll;
   width: 95%;
   height: 150px;
 }
@@ -181,11 +181,9 @@ button:active{
   align-items: center;
 }
 
-.copyCoords{
+.copy{
   cursor: pointer;
   position: relative;
-  top: 0px;
-  left: 2px;
   font-size: 1.8rem;
   width: 27px;
   height: 27px;
@@ -195,7 +193,7 @@ button:active{
   border-radius: 5px;
   padding: .5rem;
 }
-.copyCoords:hover{
+.copy:hover{
   background-color: rgb(228, 230, 255);
 }
 
@@ -204,21 +202,16 @@ button:active{
 }
 
 .copyLength{
-  cursor: pointer;
-  position: relative;
   top: 0px;
   left: 2px;
-  font-size: 1.8rem;
-  width: 27px;
-  height: 27px;
-  background-color: white;
-  color: var(--main);
-  border: none;
-  border-radius: 5px;
-  padding: .5rem;
 }
-.copyLength:hover{
-  background-color: rgb(228, 230, 255);
+.reloadLength{
+  top: 0px;
+  left: -10px;
+}
+.copyCoords{
+  top: 0px;
+  left: 2px;
 }
 
 .length-heading {

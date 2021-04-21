@@ -282,7 +282,7 @@ class Main extends React.Component {
       let half1 = this.state.layers.slice(0, num - 1)
       let half2 = this.state.layers.slice(num)
       let layer = this.state.layers[num - 1]
-      const newLayer = {
+      let newLayer = {
         name: layer.name,
         number: layer.number,
         path: e.target.value,
@@ -292,8 +292,7 @@ class Main extends React.Component {
         isScribble: layer.isScribble,
         animTime: layer.animTime,
       }
-      this.setState({ layers: half1.concat(newLayer).concat(half2) });
-      console.log(this.state.layers)
+      this.setState({ layers: half1.concat(newLayer).concat(half2) })
     }
 }
 
