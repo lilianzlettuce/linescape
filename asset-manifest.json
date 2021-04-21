@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/linescape/static/css/main.626bb2f8.chunk.css",
-    "main.js": "/linescape/static/js/main.bd481787.chunk.js",
-    "main.js.map": "/linescape/static/js/main.bd481787.chunk.js.map",
+    "main.js": "/linescape/static/js/main.0de10c16.chunk.js",
+    "main.js.map": "/linescape/static/js/main.0de10c16.chunk.js.map",
     "runtime-main.js": "/linescape/static/js/runtime-main.4298942c.js",
     "runtime-main.js.map": "/linescape/static/js/runtime-main.4298942c.js.map",
-    "static/js/2.2a1e892d.chunk.js": "/linescape/static/js/2.2a1e892d.chunk.js",
-    "static/js/2.2a1e892d.chunk.js.map": "/linescape/static/js/2.2a1e892d.chunk.js.map",
+    "static/js/2.6cff5802.chunk.js": "/linescape/static/js/2.6cff5802.chunk.js",
+    "static/js/2.6cff5802.chunk.js.map": "/linescape/static/js/2.6cff5802.chunk.js.map",
     "index.html": "/linescape/index.html",
     "static/css/main.626bb2f8.chunk.css.map": "/linescape/static/css/main.626bb2f8.chunk.css.map",
-    "static/js/2.2a1e892d.chunk.js.LICENSE.txt": "/linescape/static/js/2.2a1e892d.chunk.js.LICENSE.txt"
+    "static/js/2.6cff5802.chunk.js.LICENSE.txt": "/linescape/static/js/2.6cff5802.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.4298942c.js",
-    "static/js/2.2a1e892d.chunk.js",
+    "static/js/2.6cff5802.chunk.js",
     "static/css/main.626bb2f8.chunk.css",
-    "static/js/main.bd481787.chunk.js"
+    "static/js/main.0de10c16.chunk.js"
   ]
 }
