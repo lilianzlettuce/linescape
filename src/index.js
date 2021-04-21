@@ -261,40 +261,6 @@ class Main extends React.Component {
       console.log(this.state.layers)
     }
 
-    changeName(e, num) {
-      let half1 = this.state.layers.slice(0, num - 1)
-      let half2 = this.state.layers.slice(num)
-      let layer = this.state.layers[num - 1]
-      const newLayer = {
-        name: e.target.value,
-        number: layer.number,
-        path: layer.path,
-        length: layer.length,
-        strokeWidth: layer.strokeWidth,
-        color: layer.color,
-        isScribble: layer.isScribble,
-        animTime: layer.animTime,
-      }
-      this.setState({ layers: half1.concat(newLayer).concat(half2) });
-    }
-
-    changePath(e, num) {
-      let half1 = this.state.layers.slice(0, num - 1)
-      let half2 = this.state.layers.slice(num)
-      let layer = this.state.layers[num - 1]
-      let newLayer = {
-        name: layer.name,
-        number: layer.number,
-        path: e.target.value,
-        length: layer.length,
-        strokeWidth: layer.strokeWidth,
-        color: layer.color,
-        isScribble: layer.isScribble,
-        animTime: layer.animTime,
-      }
-      this.setState({ layers: half1.concat(newLayer).concat(half2) })
-    }
-
     updateLayer(e, num, stat) {
       console.log(this.state.layers)
       let half1 = this.state.layers.slice(0, num - 1)
@@ -328,24 +294,6 @@ class Main extends React.Component {
       this.setState({ layers: half1.concat(newLayer).concat(half2) })
     }
 
-    reloadLength(e, num) {
-      let length = document.querySelector(`#path${num}`).getTotalLength()
-      document.querySelector(`#strokeLength${num}`).value = length
-      let half1 = this.state.layers.slice(0, num - 1)
-      let half2 = this.state.layers.slice(num)
-      let layer = this.state.layers[num - 1]
-      let newLayer = {
-        name: layer.name,
-        number: layer.number,
-        path: layer.path,
-        length: length,
-        strokeWidth: layer.strokeWidth,
-        color: layer.color,
-        isScribble: layer.isScribble,
-        animTime: layer.animTime,
-      }
-      this.setState({ layers: half1.concat(newLayer).concat(half2) })
-  }
 }
 
 function Path(props) {
