@@ -234,7 +234,6 @@ class Main extends React.Component {
       let half2 = this.state.layers.slice(num)
       let newHalf2 = []
       for (let i = 0; i < half2.length; i++) {
-        console.log(this.state.numLayers)
         const newLayer = {
           name: half2[i].name,
           number: half2[i].number - 1,
@@ -256,7 +255,6 @@ class Main extends React.Component {
           currentPath: '',
         })
       }
-      alert(this.state.layers[0].name)
       console.log(this.state.layers)
     }
 
