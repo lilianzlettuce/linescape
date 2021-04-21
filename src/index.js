@@ -57,7 +57,7 @@ class Main extends React.Component {
                 },
                 {
                     name: 'lettuce',
-                    path: 'M 351 270 Q 333 153, 390 232  Q 506 113, 429 242  Q 522 220, 439 271  Q 571 303, 413 304      Q 399 542, 239 477  Q 225 468, 217 500  Q 215 517, 186 489      Q 148 454, 167 448  Q 179 445, 188 438  Q 194 432, 172 402  Q 147 367, 161 340  Q 182 300, 252 277    Q 308 264, 351 270  Q 275 340, 254 396    Q 411 305, 410 304  Q 254 416, 225 439  Q 246 336, 344 270         ',
+                    path: 'M 351 270 Q 333 153, 390 232  Q 506 113, 429 242  Q 522 220, 439 271  Q 571 303, 413 304      Q 399 542, 239 477  Q 225 468, 217 500  Q 215 517, 186 489      Q 148 454, 167 448  Q 179 445, 188 438  Q 194 432, 172 402  Q 147 367, 161 340  Q 182 300, 252 277    Q 308 264, 351 270  Q 275 340, 254 396    Q 411 305, 410 304  Q 254 416, 225 439  Q 246 336, 344 270',
                     length: '2107.392578125',
                     strokeWidth: '6',
                     color: 'lightgreen',
@@ -86,7 +86,6 @@ class Main extends React.Component {
         this.toSaved = this.toSaved.bind(this)
         this.deleteLayer = this.deleteLayer.bind(this)
         this.updateLayer = this.updateLayer.bind(this)
-        this.reloadLength = this.reloadLength.bind(this)
     }
 
     render() {
@@ -267,7 +266,7 @@ class Main extends React.Component {
       let half2 = this.state.layers.slice(num)
       let layer = this.state.layers[num - 1]
       console.log(layer)
-      let stats = ['name', 'number', 'path', 'length', 'strokeWidth', 'color', 'isScribble', 'animTime']
+      let stats = ['name', 'number', 'path', 'strokeWidth', 'color', 'animTime']
       let name1, number1, path1, length1, strokeWidth1, color1, isScribble1, animTime1
       for (let i = 0; i < stats.length; i++) {
         if (stat === stats[i]) {
@@ -276,7 +275,12 @@ class Main extends React.Component {
           eval(stats[i] + '1 = layer.' + stats[i])
         }
       }
-      
+
+      if (layer.isScribble) {
+        isScribble1 = false
+      } else {
+        isScribble1 = true
+      }
       length1 = document.querySelector(`#path${num}`).getTotalLength()
       document.querySelector(`#strokeLength${num}`).value = length1
 

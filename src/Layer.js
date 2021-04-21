@@ -10,7 +10,7 @@ class Layer extends React.Component {
         this.hideLayer = this.hideLayer.bind(this)
         this.copyCoords = this.copyCoords.bind(this)
         this.copyLength = this.copyLength.bind(this)
-        
+        this.genScrib = this.genScrib.bind(this)
     }
 
     render() {
@@ -25,13 +25,13 @@ class Layer extends React.Component {
                 <div className="btn-box">
                     <input className="h2-input" defaultValue={this.props.name} type="text" onChange={(e) => {this.props.updateLayer(e, this.props.number, 'name')}} />
                     <div className="btn-box2">
-                        <button className="genNew" id={"genNewBtn" + this.props.number}>New Scribble</button>
+                        <button className="genNew" id={"genNewBtn" + this.props.number} onClick={this.genScrib}>New Scribble</button>
                     </div>
                 </div>
     
-                <input type="text" id={"color-input" + this.props.number} placeholder="Color" />
-                <input type="number" id={"strokeWidth-input" + this.props.number} placeholder="Stroke width" />
-                <input type="number" id={"animation-input" + this.props.number} placeholder="Animation Speed" />
+                <input type="text" id={"color-input" + this.props.number} placeholder="Color" onChange={(e) => {this.props.updateLayer(e, this.props.number, 'color')}} />
+                <input type="number" id={"strokeWidth-input" + this.props.number} placeholder="Stroke width" onChange={(e) => {this.props.updateLayer(e, this.props.number, 'strokeWidth')}} />
+                <input type="number" id={"animation-input" + this.props.number} placeholder="Animation Speed" onChange={(e) => {this.props.updateLayer(e, this.props.number, 'animTime')}} />
                 <input type="number" id={"size-input" + this.props.number} placeholder="Scribble size" />
     
                 <div className="length-container">
@@ -52,6 +52,24 @@ class Layer extends React.Component {
                 </div>
             </div>
         )
+    }
+
+    genScrib(e) {
+        let path = document.querySelector(`#path${this.props.number}`)
+        let size = document.querySelector(`#size-input${this.props.number}`)
+        path.style.strokeDasharray = ''
+        path.style.strokeDashoffset = ''
+        path.style.animation = ''
+        let scribbleSize
+        if (size !== '') {
+            scribbleSize = size
+        }
+        createScribble('#path' + this.props.number, 450, 300, 1, scribbleSize, 4, 4)
+        let d = path.getAttribute('d')
+        document.querySelector(`#text-display${this.props.number}`).value = d
+
+        this.props.updateLayer(e, this.props.number, 'length')
+        this.props.updateLayer(e, this.props.number, 'isScribble')
     }
 
     hideLayer() {
@@ -80,6 +98,37 @@ class Layer extends React.Component {
         document.execCommand("copy")
     }
 
+}
+
+//scribble creator
+function createScribble(id, startX, startY, density, size, width, height) {
+    let d = `M ${startX} ${startY} Q ${startX + 5} ${startY + 5}, ${startX - 5} ${startY} `
+    for (let i = 0; i < density; i++) {
+        d += `T ${startX} ${startY} T ${startX + 5} ${startY + 5} `
+        for (let j = 0; j <= size; j++) {
+            let r = Math.floor(Math.random() * 2)
+            let r2 = Math.floor(Math.random() * 2)
+            let rangeX = j / width
+            let rangeY = j / height
+            let randomX
+            let randomY
+
+            if (r % 2 === 0) {
+                randomX = startX + rangeX
+            } else {
+                randomX = startX - rangeX
+            }
+            if (r2 % 2 === 0) {
+                randomY = startY + rangeY
+            } else {
+                randomY = startY - rangeY
+            }
+
+            d += `T ${randomX} ${randomY} `
+        }
+    }
+    document.querySelector(id).setAttribute('d', d)
+    console.log(d)
 }
 
 export default Layer
