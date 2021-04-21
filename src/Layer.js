@@ -60,7 +60,7 @@ class Layer extends React.Component {
         path.style.strokeDasharray = ''
         path.style.strokeDashoffset = ''
         path.style.animation = ''
-        let scribbleSize
+        let scribbleSize = 100
         if (size !== '') {
             scribbleSize = size
         }
