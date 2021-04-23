@@ -45,7 +45,7 @@ class Layer extends React.Component {
                 <input type="text" id={"color-input" + this.props.number} placeholder="Color" onChange={(e) => {this.props.updateLayer(e, this.props.number, 'color')}} />
                 <input type="number" id={"strokeWidth-input" + this.props.number} placeholder="Stroke width" onChange={(e) => {this.props.updateLayer(e, this.props.number, 'strokeWidth')}} />
                 <input type="number" id={"animation-input" + this.props.number} placeholder="Animation Speed" onChange={(e) => {this.props.updateLayer(e, this.props.number, 'animTime')}} />
-                <input type="number" id={"size-input" + this.props.number} placeholder="Scribble size" />
+                <input type="number" id={"size-input" + this.props.number} placeholder="Scribble size" onChange={(e) => {this.props.updateLayer(e, this.props.number, 'size')}} />
     
                 <div className="length-container">
                     <div className="length-heading">
