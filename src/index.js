@@ -231,28 +231,20 @@ class Main extends React.Component {
     deleteLayer(num) {
       let half1 = this.state.layers.slice(0, num - 1)
       let half2 = this.state.layers.slice(num)
-      let newHalf2 = []
       for (let i = 0; i < half2.length; i++) {
-        const newLayer = {
-          name: half2[i].name,
-          number: half2[i].number - 1,
-          path: half2[i].path,
-          length: half2[i].length,
-          strokeWidth: half2[i].strokeWidth,
-          color: half2[i].color,
-          isScribble: half2[i].isScribble,
-          animTime: half2[i].animTime,
-        }
-        newHalf2.push(newLayer)
+        half2[i].number = half2[i].number - 1
       }
-      this.setState(state => ({
-        layers: half1.concat(newHalf2),
-        numLayers: state.numLayers - 1, 
-      }))
       if (num === this.state.numLayers) {
-        this.setState({ 
+        this.setState(state => ({
+          layers: half1.concat(half2),
+          numLayers: state.numLayers - 1, 
           currentPath: '',
-        })
+        }))
+      } else {
+        this.setState(state => ({
+          layers: half1.concat(half2),
+          numLayers: state.numLayers - 1, 
+        }))
       }
       console.log(this.state.layers)
     }
