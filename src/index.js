@@ -274,6 +274,7 @@ class Main extends React.Component {
           color: 'black',
           isScribble: false,
           animTime: 6,
+          size: 100,
         }
         
         this.state.layers.pop()
