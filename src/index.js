@@ -94,7 +94,7 @@ class Main extends React.Component {
                 {/* <LoginPage /> */}
                 <svg className="canvas" id="canvas1" onClick={this.canvasClicked} width="700" height="500">
                     {this.state.layers.map(layer => (
-                        <Path key={"path" + layer.number} number={layer.number} color={layer.color} strokeWidth={layer.strokeWidth} d={layer.path} />
+                        <path key={"path" + layer.number} id={"path" + layer.number} className="draw" stroke={layer.color} strokeLinecap="round"  fill="transparent" strokeWidth={layer.strokeWidth} d={layer.path} />
                     ))}
                 </svg>
                 <div id="section">
@@ -259,7 +259,6 @@ class Main extends React.Component {
     }
 
     updateLayer(e, num, stat) {
-      console.log(this.state.layers)
       let half1 = this.state.layers.slice(0, num - 1)
       let half2 = this.state.layers.slice(num)
       let layer = this.state.layers[num - 1]
