@@ -172,7 +172,81 @@ class Main extends React.Component {
     }
 
     canvasClicked() {
-      this.setState({ currentPath: document.querySelector(`#path${this.state.numLayers}`).getAttribute('d') })
+      let x = Math.floor(e.clientX)
+      let y = Math.floor(e.clientY) + window.scrollY
+      length = path.getTotalLength()
+      isScribble = false
+      let oldLayer
+      let newLayer
+      let num = this.state.numLayers - 1
+      if (this.state.numLayers > 0) {
+        oldLayer = {
+          name: this.state.layers[num].name,
+          number: this.state.numLayers,
+          path: document.querySelector(`#path${this.state.numLayers}`).getAttribute('d'),
+          length: this.state.layers[num].length,
+          strokeWidth: this.state.layers[num].strokeWidth,
+          color: this.state.layers[num].color,
+          isScribble: this.state.layers[num].isScribble,
+          animTime: this.state.layers[num].animTime,
+        }
+        newLayer = {
+          name: `Layer #${this.state.numLayers + 1}`,
+          number: this.state.numLayers + 1,
+          path: '',
+          length: 0,
+          strokeWidth: 2,
+          color: 'black',
+          isScribble: false,
+          animTime: 6,
+        }
+        
+        this.state.layers.pop()
+        this.setState(state => ({
+            layers: state.layers.concat(oldLayer).concat(newLayer),
+            numLayers: state.numLayers + 1,
+            currentPath: ''
+        }))
+      } else {
+        newLayer = {
+          name: 'Layer #1',
+          number: 1,
+          path: '',
+          length: 0,
+          strokeWidth: 2,
+          color: 'black',
+          isScribble: false,
+          animTime: 6,
+        }
+        this.setState(state => ({
+          layers: state.layers.concat(newLayer),
+          numLayers: 1,
+          currentPath: ''
+        }))
+      }
+      path.style.strokeDasharray = ''
+      path.style.strokeDashoffset = ''
+      path.style.animation = ''
+      if (firstClick) {
+          firstClick = false
+          path.setAttribute('d', `M ${x} ${y}`)
+      } else if (!down) {
+          //setting the first point on a curve
+          path.setAttribute('d', `${d} Q ${x} ${y}, ${x} ${y} `)
+          down = true
+      } else {
+          //setting the second point on the curve
+          let index = getIndexComma()
+          path.setAttribute('d', `${d.substring(0, index)}, ${x} ${y} `)
+          down = false
+          numLines++
+          length = path.getTotalLength()
+          lengthText.value = length
+      }
+
+      updateVals()
+      d = path.getAttribute('d')
+      text.value = d
     }
 
     addLayer() {
