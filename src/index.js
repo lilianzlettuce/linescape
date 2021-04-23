@@ -183,21 +183,22 @@ class Main extends React.Component {
         path.style.strokeDasharray = ''
         path.style.strokeDashoffset = ''
         path.style.animation = ''
-        if (firstClick) {
-            firstClick = false
-            path.setAttribute('d', `M ${x} ${y}`)
-        } else if (!down) {
-            //setting the first point on a curve
-            path.setAttribute('d', `${d} Q ${x} ${y}, ${x} ${y} `)
-            down = true
+        if (this.state.firstClick) {
+          //setting starting point
+          this.setState( {firstClick: false} )
+          path.setAttribute('d', `M ${x} ${y}`)
+        } else if (!this.state.down) {
+          //setting the first point on a curve
+          path.setAttribute('d', `${d} Q ${x} ${y}, ${x} ${y} `)
+          this.setState( {down: true} )
         } else {
-            //setting the second point on the curve
-            let index = getIndexComma()
-            path.setAttribute('d', `${d.substring(0, index)}, ${x} ${y} `)
-            down = false
-            numLines++
-            length = path.getTotalLength()
-            lengthText.value = length
+          //setting the second point on the curve
+          let index = getIndexComma(path.getAttribute('d'))
+          path.setAttribute('d', `${d.substring(0, index)}, ${x} ${y} `)
+          this.setState( {down: false} )
+          this.setState( {numLines: this.state.numLines + 1} )
+          length = path.getTotalLength()
+          lengthText.value = length
         }
   
         updateVals()
@@ -327,9 +328,16 @@ class Main extends React.Component {
       } else {
         isScribble1 = true
       }
-      length1 = document.querySelector(`#path${num}`).getTotalLength()
-      document.querySelector(`#strokeLength${num}`).value = length1
+      
+      //update path first to get length
+      if (stat === 'path') {
+        let path = document.querySelector(`#path${num}`)
+        path.setAttribute('d', e.target.value)
+        length1 = path.getTotalLength()
+        document.querySelector(`#strokeLength${num}`).value = length1
+      }
 
+      //store new value
       let newLayer = {
         name: name1,
         number: number1,
@@ -344,6 +352,16 @@ class Main extends React.Component {
       this.setState({ layers: half1.concat(newLayer).concat(half2) })
     }
 
+}
+
+//get index of the last comma
+function getIndexComma(d) {
+  for (let i = d.length - 1; i >= 0; i--) {
+      if (d.substring(i, i + 1) === ',') {
+          return i
+      }
+  }
+  return 0
 }
 
 
