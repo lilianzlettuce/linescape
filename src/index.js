@@ -163,6 +163,7 @@ class Main extends React.Component {
       this.setState( {tab: 1} )
 
       //ui changes
+      document.querySelector(`#path${this.state.numLayers}`).style.opacity = '100%'
       let savedTab = document.querySelector('#saved-tab')
       let layersTab = document.querySelector('#layers-tab')
       savedTab.style.color = "var(--main)"
@@ -174,6 +175,7 @@ class Main extends React.Component {
       this.setState( {tab: 2} )
 
       //ui changes
+      document.querySelector(`#path${this.state.numLayers}`).style.opacity = '0%'
       let savedTab = document.querySelector('#saved-tab')
       let layersTab = document.querySelector('#layers-tab')
       layersTab.style.color = "var(--main)"
