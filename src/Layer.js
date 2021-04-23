@@ -38,7 +38,7 @@ class Layer extends React.Component {
                     <div className="length-heading">
                         <h3>Stroke Length</h3>
                         <button className="copyLength copy" onClick={this.copyLength} id={"copyLengthBtn" + this.props.number}><i className="far fa-copy"></i></button>
-                        <button className="reloadLength copy" onClick={(e) => {this.props.updateLayer(e, this.props.number, 'length')}} id={"reloadLengthBtn" + this.props.number}><i className="fas fa-redo-alt"></i></button>
+                        <button className="reload copy" onClick={(e) => {this.props.updateLayer(e, this.props.number, 'length')}} id={"reloadBtn" + this.props.number}><i className="fas fa-redo-alt"></i></button>
                     </div>
                     <input readOnly type = "number" id={"strokeLength" + this.props.number} className="length-input" />
                 </div>
