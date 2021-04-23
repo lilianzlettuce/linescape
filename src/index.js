@@ -21,7 +21,6 @@ class Main extends React.Component {
                   animTime: 6,
                 }
             ],
-            currentPath: '',
             numLayers: 1,
             saved: [
                 {
@@ -171,19 +170,44 @@ class Main extends React.Component {
       savedTab.style.color = "white"
     }
 
-    canvasClicked() {
-      let x = Math.floor(e.clientX)
-      let y = Math.floor(e.clientY) + window.scrollY
-      length = path.getTotalLength()
-      isScribble = false
-      let oldLayer
-      let newLayer
-      let num = this.state.numLayers - 1
+    canvasClicked(e) {
       if (this.state.numLayers > 0) {
+        let path = document.querySelector(`#path${this.state.numLayers}`)
+        let x = Math.floor(e.clientX)
+        let y = Math.floor(e.clientY) + window.scrollY
+        let length = path.getTotalLength()
+        let isScribble = false
+        path.style.strokeDasharray = ''
+        path.style.strokeDashoffset = ''
+        path.style.animation = ''
+        if (firstClick) {
+            firstClick = false
+            path.setAttribute('d', `M ${x} ${y}`)
+        } else if (!down) {
+            //setting the first point on a curve
+            path.setAttribute('d', `${d} Q ${x} ${y}, ${x} ${y} `)
+            down = true
+        } else {
+            //setting the second point on the curve
+            let index = getIndexComma()
+            path.setAttribute('d', `${d.substring(0, index)}, ${x} ${y} `)
+            down = false
+            numLines++
+            length = path.getTotalLength()
+            lengthText.value = length
+        }
+  
+        updateVals()
+        d = path.getAttribute('d')
+        text.value = d
+
+        let oldLayer
+        let newLayer
+        let num = this.state.numLayers - 1
         oldLayer = {
           name: this.state.layers[num].name,
           number: this.state.numLayers,
-          path: document.querySelector(`#path${this.state.numLayers}`).getAttribute('d'),
+          path: path.getAttribute('d'),
           length: this.state.layers[num].length,
           strokeWidth: this.state.layers[num].strokeWidth,
           color: this.state.layers[num].color,
@@ -205,48 +229,8 @@ class Main extends React.Component {
         this.setState(state => ({
             layers: state.layers.concat(oldLayer).concat(newLayer),
             numLayers: state.numLayers + 1,
-            currentPath: ''
         }))
-      } else {
-        newLayer = {
-          name: 'Layer #1',
-          number: 1,
-          path: '',
-          length: 0,
-          strokeWidth: 2,
-          color: 'black',
-          isScribble: false,
-          animTime: 6,
-        }
-        this.setState(state => ({
-          layers: state.layers.concat(newLayer),
-          numLayers: 1,
-          currentPath: ''
-        }))
-      }
-      path.style.strokeDasharray = ''
-      path.style.strokeDashoffset = ''
-      path.style.animation = ''
-      if (firstClick) {
-          firstClick = false
-          path.setAttribute('d', `M ${x} ${y}`)
-      } else if (!down) {
-          //setting the first point on a curve
-          path.setAttribute('d', `${d} Q ${x} ${y}, ${x} ${y} `)
-          down = true
-      } else {
-          //setting the second point on the curve
-          let index = getIndexComma()
-          path.setAttribute('d', `${d.substring(0, index)}, ${x} ${y} `)
-          down = false
-          numLines++
-          length = path.getTotalLength()
-          lengthText.value = length
-      }
-
-      updateVals()
-      d = path.getAttribute('d')
-      text.value = d
+      } 
     }
 
     addLayer() {
@@ -279,7 +263,6 @@ class Main extends React.Component {
         this.setState(state => ({
             layers: state.layers.concat(oldLayer).concat(newLayer),
             numLayers: state.numLayers + 1,
-            currentPath: ''
         }))
       } else {
         newLayer = {
@@ -295,7 +278,6 @@ class Main extends React.Component {
         this.setState(state => ({
           layers: state.layers.concat(newLayer),
           numLayers: 1,
-          currentPath: ''
         }))
       }
       console.log('numlayers:' + this.state.numLayers)
@@ -312,7 +294,6 @@ class Main extends React.Component {
         this.setState(state => ({
           layers: half1.concat(half2),
           numLayers: state.numLayers - 1, 
-          currentPath: '',
         }))
       } else {
         this.setState(state => ({
