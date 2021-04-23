@@ -175,7 +175,9 @@ class Main extends React.Component {
 
     canvasClicked(e) {
       if (this.state.numLayers > 0) {
-        let path = document.querySelector(`#path${this.state.numLayers}`)
+        let num = this.state.numLayers
+        let path = document.querySelector(`#path${num}`)
+        let d = path.getAttribute('d')
         let x = Math.floor(e.clientX)
         let y = Math.floor(e.clientY) + window.scrollY
         let length = path.getTotalLength()
@@ -197,26 +199,25 @@ class Main extends React.Component {
           path.setAttribute('d', `${d.substring(0, index)}, ${x} ${y} `)
           this.setState( {down: false} )
           this.setState( {numLines: this.state.numLines + 1} )
-          length = path.getTotalLength()
-          lengthText.value = length
+          let length = path.getTotalLength()
+          document.querySelector(`#strokeLength${num}`).value = length
         }
   
-        updateVals()
         d = path.getAttribute('d')
-        document.querySelector(`#text-display${layerNum}`).value = d
+        document.querySelector(`#text-display${num}`).value = d
 
         let oldLayer
         let newLayer
-        let num = this.state.numLayers - 1
+        let num2 = this.state.numLayers - 1
         oldLayer = {
-          name: this.state.layers[num].name,
+          name: this.state.layers[num2].name,
           number: this.state.numLayers,
           path: path.getAttribute('d'),
-          length: this.state.layers[num].length,
-          strokeWidth: this.state.layers[num].strokeWidth,
-          color: this.state.layers[num].color,
-          isScribble: this.state.layers[num].isScribble,
-          animTime: this.state.layers[num].animTime,
+          length: this.state.layers[num2].length,
+          strokeWidth: this.state.layers[num2].strokeWidth,
+          color: this.state.layers[num2].color,
+          isScribble: this.state.layers[num2].isScribble,
+          animTime: this.state.layers[num2].animTime,
         }
         newLayer = {
           name: `Layer #${this.state.numLayers + 1}`,
