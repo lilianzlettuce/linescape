@@ -56,7 +56,7 @@ class Layer extends React.Component {
 
     genScrib(e) {
         let path = document.querySelector(`#path${this.props.number}`)
-        let size = document.querySelector(`#size-input${this.props.number}`)
+        let size = document.querySelector(`#size-input${this.props.number}`).value
         path.style.strokeDasharray = ''
         path.style.strokeDashoffset = ''
         path.style.animation = ''
@@ -64,6 +64,7 @@ class Layer extends React.Component {
         if (size !== '') {
             scribbleSize = size
         }
+        console.log('scr:' + scribbleSize)
         createScribble('#path' + this.props.number, 450, 300, 1, scribbleSize, 4, 4)
         let d = path.getAttribute('d')
         document.querySelector(`#text-display${this.props.number}`).value = d
