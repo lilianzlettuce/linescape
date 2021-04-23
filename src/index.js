@@ -140,7 +140,6 @@ class Main extends React.Component {
       } else {
         newName = this.state.layers[num - 1].name + ' ' + ((1.0 + numReps * 0.1).toFixed(1))
       }
-      console.log(newName)
       const newSaved = {
         name: newName,
         path: this.state.layers[num - 1].path,
@@ -153,9 +152,9 @@ class Main extends React.Component {
         size: this.state.layers[num - 1].size,
       }
       this.setState(state => ({
-        saved: state.saved.concat(newSaved),
+        saved: state.saved.concat([newSaved]),
         numSaved: state.numSaved + 1,
-        savedNames: state.savedNames.concat(newName),
+        savedNames: state.savedNames.concat([newName]),
       }))
     }
 
@@ -245,7 +244,7 @@ class Main extends React.Component {
         
         this.state.layers.pop()
         this.setState(state => ({
-            layers: state.layers.concat(oldLayer).concat(newLayer),
+            layers: state.layers.concat([oldLayer]).concat([newLayer]),
             numLayers: state.numLayers + 1,
         }))
       } 
@@ -281,7 +280,7 @@ class Main extends React.Component {
         
         this.state.layers.pop()
         this.setState(state => ({
-            layers: state.layers.concat(oldLayer).concat(newLayer),
+            layers: state.layers.concat([oldLayer]).concat([newLayer]),
             numLayers: state.numLayers + 1,
         }))
       } else {
@@ -297,7 +296,7 @@ class Main extends React.Component {
           size: 100,
         }
         this.setState(state => ({
-          layers: state.layers.concat(newLayer),
+          layers: state.layers.concat([newLayer]),
           numLayers: 1,
         }))
       }
@@ -313,12 +312,12 @@ class Main extends React.Component {
       }
       if (num === this.state.numLayers) {
         this.setState(state => ({
-          layers: half1.concat(half2),
+          layers: half1.concat([half2]),
           numLayers: state.numLayers - 1, 
         }))
       } else {
         this.setState(state => ({
-          layers: half1.concat(half2),
+          layers: half1.concat([half2]),
           numLayers: state.numLayers - 1, 
         }))
       }
