@@ -155,6 +155,13 @@ class Main extends React.Component {
     toLayers() {
       this.setState( {tab: 1} )
 
+      let num = this.state.numLayers
+      //bring back coord display
+      let path = document.querySelector(`#path${num}`)
+      document.querySelector(`#text-display${num}`).value = this.state.layers[num].path
+      document.querySelector(`#strokeLength${num}`).value = path.getTotalLength()
+
+      //ui changes
       let savedTab = document.querySelector('#saved-tab')
       let layersTab = document.querySelector('#layers-tab')
       savedTab.style.color = "var(--main)"
@@ -165,6 +172,7 @@ class Main extends React.Component {
     toSaved() {
       this.setState( {tab: 2} )
 
+      //ui changes
       let savedTab = document.querySelector('#saved-tab')
       let layersTab = document.querySelector('#layers-tab')
       layersTab.style.color = "var(--main)"

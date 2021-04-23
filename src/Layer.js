@@ -40,7 +40,7 @@ class Layer extends React.Component {
                         <button className="copyLength copy" onClick={this.copyLength} id={"copyLengthBtn" + this.props.number}><i className="far fa-copy"></i></button>
                         <button className="reload copy" onClick={(e) => {this.props.updateLayer(e, this.props.number, 'length')}} id={"reloadBtn" + this.props.number}><i className="fas fa-redo-alt"></i></button>
                     </div>
-                    <input readOnly type = "number" defaultValue={ () => {if (this.props.path !== '') document.querySelector(`#path${this.props.number}`).getTotalLength()} } id={"strokeLength" + this.props.number} className="length-input" />
+                    <input readOnly type = "number" id={"strokeLength" + this.props.number} className="length-input" />
                 </div>
     
                 <div className="coords-container">
@@ -48,14 +48,13 @@ class Layer extends React.Component {
                         <h3>SVG Coordinates</h3>
                         <button className="copyCoords copy" onClick={this.copyCoords} id={"copyCoordsBtn" + this.props.number}><i className="fas fa-copy"></i></button>
                     </div>
-                    <textarea id={"text-display" + this.props.number} defaultValue={ () => {if (this.props.path !== '') { document.querySelector(`#path${this.props.number}`).getAttribute('d')}; console.log('ok') } } name="paragraph_text" cols="50" rows="10" onChange={(e) => {this.props.updateLayer(e, this.props.number, 'path')}} ></textarea>
+                    <textarea id={"text-display" + this.props.number} ></textarea>
                 </div>
             </div>
         )
     }
 
     genScrib(e) {
-        console.log(this.props.path)
         let path = document.querySelector(`#path${this.props.number}`)
         let size = document.querySelector(`#size-input${this.props.number}`).value
         path.style.strokeDasharray = ''
