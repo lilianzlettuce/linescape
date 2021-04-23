@@ -64,15 +64,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let firstClick = true
     let numLines = 0
     let down = false
-    let offSetX = 0
-    let offSetY = 0
     let length = path.getTotalLength()
     let isScribble = false
 
     //setting path points
     canvas.addEventListener('click', (e) => {
-        let x = Math.floor(e.clientX) - offSetX
-        let y = Math.floor(e.clientY) - offSetY + window.scrollY
+        let x = Math.floor(e.clientX)
+        let y = Math.floor(e.clientY) + window.scrollY
         length = path.getTotalLength()
         isScribble = false
         path.style.strokeDasharray = ''

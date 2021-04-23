@@ -172,7 +172,7 @@ class Main extends React.Component {
     }
 
     canvasClicked() {
-        this.setState({ currentPath: document.querySelector(`#path${this.state.numLayers}`).getAttribute('d') })
+      this.setState({ currentPath: document.querySelector(`#path${this.state.numLayers}`).getAttribute('d') })
     }
 
     addLayer() {
