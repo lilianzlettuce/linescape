@@ -13,7 +13,7 @@ class Main extends React.Component {
                 {
                   name: 'Layer #1',
                   number: 1,
-                  path: '',
+                  path: 'M 180 233 Q 206 145, 294 178 Q 335 194, 368 232 Q 389 253, 429 286 Q 449 303, 418 332',
                   length: 0,
                   strokeWidth: 2,
                   color: 'black',
