@@ -76,6 +76,9 @@ class Main extends React.Component {
             ],
             numSaved: 0,
             savedNames: [],
+            firstClick: true,
+            numLines: 0,
+            down: false,
         }
         this.saveLayer = this.saveLayer.bind(this)
         this.addLayer = this.addLayer.bind(this)
@@ -199,7 +202,7 @@ class Main extends React.Component {
   
         updateVals()
         d = path.getAttribute('d')
-        text.value = d
+        document.querySelector(`#text-display${layerNum}`).value = d
 
         let oldLayer
         let newLayer

@@ -64,8 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let firstClick = true
     let numLines = 0
     let down = false
-    let length = path.getTotalLength()
-    let isScribble = false
 
     //setting path points
     canvas.addEventListener('click', (e) => {
