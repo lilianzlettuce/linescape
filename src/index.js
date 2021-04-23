@@ -2,8 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import LoginPage from './LoginPage.js'
-import Layer from './Layer.js'
-import Saved from './Saved.js'
+import LayerList from './LayerList.js'
 
 class Main extends React.Component {
     constructor(props) {
@@ -295,32 +294,6 @@ class Main extends React.Component {
       this.setState({ layers: half1.concat(newLayer).concat(half2) })
     }
 
-}
-
-function Path(props) {
-    return (
-        <path id={"path" + props.number} className="draw" stroke={props.color} strokeLinecap="round" strokeWidth={props.strokeWidth} color={props.color} fill="transparent" d={props.d} />
-    )
-}
-
-function LayerList(props) {
-    if (props.tab === 1) {
-        return (
-            <div className="layers-container">
-                {props.layers.map(layer => (
-                    <Layer key={"layer" + layer.number} number={layer.number} name={layer.name} deleteLayer={props.deleteLayer} saveLayer={props.saveLayer} updateLayer={props.updateLayer} reloadLength={props.reloadLength} />
-                ))}
-            </div>
-        )
-    } else {
-        return (
-            <div className="layers-container">
-                {props.saved.map(thing => (
-                    <Saved key={"saved" + thing.number} number={thing.number} name={thing.name} path={thing.path} strokeWidth={thing.strokeWidth} length={thing.length} color={thing.color} isScribble={thing.isScribble} animTime={thing.animTime} />
-                ))}
-            </div>
-        )
-    }
 }
 
 
