@@ -13,7 +13,7 @@ class Main extends React.Component {
                 {
                   name: 'Layer #1',
                   number: 1,
-                  path: 'M 180 233 Q 206 145, 294 178 Q 335 194, 368 232 Q 389 253, 429 286 Q 449 303, 418 332',
+                  path: '',
                   length: 0,
                   strokeWidth: 2,
                   color: 'black',
@@ -154,12 +154,6 @@ class Main extends React.Component {
 
     toLayers() {
       this.setState( {tab: 1} )
-
-      let num = this.state.numLayers
-      //bring back coord display
-      let path = document.querySelector(`#path${num}`)
-      document.querySelector(`#text-display${num}`).value = this.state.layers[num].path
-      document.querySelector(`#strokeLength${num}`).value = path.getTotalLength()
 
       //ui changes
       let savedTab = document.querySelector('#saved-tab')

@@ -13,6 +13,19 @@ class Layer extends React.Component {
         this.genScrib = this.genScrib.bind(this)
     }
 
+    componentDidMount() {
+        //bring back coord display
+        let num = this.props.number
+        let path = document.querySelector(`#path${num}`)
+        document.querySelector(`#text-display${num}`).value = this.props.path
+        document.querySelector(`#strokeLength${num}`).value = path.getTotalLength()
+
+        let inputArr = ['name', 'color', 'strokeWidth', 'animation', 'size']
+        for (let i = 0; i < inputArr.length; i++) {
+            eval("document.querySelector(`#${inputArr[i]}-input${num}`).value = this.props." + inputArr[i])
+        }
+    }
+
     render() {
         return (
             <div id={"layer" + this.props.number} className="layer">
@@ -23,7 +36,7 @@ class Layer extends React.Component {
                     <button className="remove" id={"removeBtn" + this.props.number} onClick={() => { this.props.deleteLayer(this.props.number) }}>Remove</button>
                 </div>
                 <div className="btn-box">
-                    <input className="h2-input" defaultValue={this.props.name} type="text" onChange={(e) => {this.props.updateLayer(e, this.props.number, 'name')}} />
+                    <input className="h2-input" id={"name-input" + this.props.number} defaultValue={this.props.name} type="text" onChange={(e) => {this.props.updateLayer(e, this.props.number, 'name')}} />
                     <div className="btn-box2">
                         <button className="genNew" id={"genNewBtn" + this.props.number} onClick={this.genScrib}>New Scribble</button>
                     </div>
@@ -40,7 +53,7 @@ class Layer extends React.Component {
                         <button className="copyLength copy" onClick={this.copyLength} id={"copyLengthBtn" + this.props.number}><i className="far fa-copy"></i></button>
                         <button className="reload copy" onClick={(e) => {this.props.updateLayer(e, this.props.number, 'length')}} id={"reloadBtn" + this.props.number}><i className="fas fa-redo-alt"></i></button>
                     </div>
-                    <input readOnly type = "number" id={"strokeLength" + this.props.number} className="length-input" />
+                    <input readOnly type = "number" id={"strokeLength" + this.props.number} onChange={(e) => {this.props.updateLayer(e, this.props.number, 'length')}} className="length-input" />
                 </div>
     
                 <div className="coords-container">
@@ -48,7 +61,7 @@ class Layer extends React.Component {
                         <h3>SVG Coordinates</h3>
                         <button className="copyCoords copy" onClick={this.copyCoords} id={"copyCoordsBtn" + this.props.number}><i className="fas fa-copy"></i></button>
                     </div>
-                    <textarea id={"text-display" + this.props.number} ></textarea>
+                    <textarea id={"text-display" + this.props.number} onChange={(e) => {this.props.updateLayer(e, this.props.number, 'path')}} ></textarea>
                 </div>
             </div>
         )
