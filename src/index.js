@@ -101,6 +101,7 @@ class Main extends React.Component {
         this.toSaved = this.toSaved.bind(this)
         this.deleteLayer = this.deleteLayer.bind(this)
         this.updateLayer = this.updateLayer.bind(this)
+        this.genID = this.genID.bind(this)
     }
 
     render() {
@@ -342,7 +343,7 @@ class Main extends React.Component {
       let half1 = this.state.layers.slice(0, num - 1)
       let half2 = this.state.layers.slice(num)
       let layer = this.state.layers[num - 1]
-      console.log(layer)
+      
       let stats = ['name', 'path', 'strokeWidth', 'color', 'animTime', 'size']
       let name1, path1, length1, strokeWidth1, color1, isScribble1, animTime1, size1
       for (let i = 0; i < stats.length; i++) {
@@ -382,6 +383,24 @@ class Main extends React.Component {
       }
 
       this.setState({ layers: half1.concat(newLayer).concat(half2) })
+    }
+
+    genID() {
+      let id = '0'
+      let dupe = false
+      let randInt = Math.float(Math.random() * 10)
+      while (dupe) {
+        for (let i = 0; i < 10; i++) {
+          id += randInt
+        }
+        let layerIDs = this.state.layerIDs
+        for (let i = 0; i < layerIDs.length; i++) {
+          if (id === layerIDs[i]) {
+            dupe = true
+          }
+        }
+      }
+      return id
     }
 
 }
