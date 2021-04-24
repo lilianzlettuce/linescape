@@ -20,9 +20,11 @@ class Main extends React.Component {
                   isScribble: false,
                   animTime: 6,
                   size: 100,
+                  id: 'a',
                 }
             ],
             numLayers: 1,
+            layerIDs: [],
             saved: [
                 {
                     name: 'among Us!',
@@ -34,6 +36,7 @@ class Main extends React.Component {
                     isScribble: false,
                     animTime: 5,
                     size: 100,
+                    id: 'a',
                 },
                 {
                     name: 'Large-ish Scribble',
@@ -45,6 +48,7 @@ class Main extends React.Component {
                     isScribble: true,
                     animTime: 3,
                     size: 100,
+                    id: 'a',
                 },
                 {
                     name: 'Wolf',
@@ -56,6 +60,7 @@ class Main extends React.Component {
                     isScribble: false,
                     animTime: 3,
                     size: 100,
+                    id: 'a',
                 },
                 {
                     name: 'lettuce',
@@ -67,6 +72,7 @@ class Main extends React.Component {
                     isScribble: false,
                     animTime: 6,
                     size: 100,
+                    id: 'a',
                 },
                 {
                     name: 'S',
@@ -78,9 +84,11 @@ class Main extends React.Component {
                     isScribble: false,
                     animTime: 6,
                     size: 100,
+                    id: 'a',
                 }
             ],
             numSaved: 0,
+            savedIDs: [],
             savedNames: [],
             firstClick: true,
             numLines: 0,
@@ -150,11 +158,12 @@ class Main extends React.Component {
         isScribble: this.state.layers[num - 1].isScribble,
         animTime: this.state.layers[num - 1].animTime,
         size: this.state.layers[num - 1].size,
+        id: this.state.layers[num - 1].id,
       }
       this.setState(state => ({
-        saved: state.saved.concat([newSaved]),
+        saved: state.saved.concat(newSaved),
         numSaved: state.numSaved + 1,
-        savedNames: state.savedNames.concat([newName]),
+        savedNames: state.savedNames.concat(newName),
       }))
     }
 
@@ -229,6 +238,7 @@ class Main extends React.Component {
           isScribble: this.state.layers[num2].isScribble,
           animTime: this.state.layers[num2].animTime,
           size: this.state.layers[num2].size,
+          id: this.state.layers[num2].id,
         }
         newLayer = {
           name: `Layer #${this.state.numLayers + 1}`,
@@ -240,11 +250,12 @@ class Main extends React.Component {
           isScribble: false,
           animTime: 6,
           size: 100,
+          id: this.genID(),
         }
         
         this.state.layers.pop()
         this.setState(state => ({
-            layers: state.layers.concat([oldLayer]).concat([newLayer]),
+            layers: state.layers.concat(oldLayer).concat(newLayer),
             numLayers: state.numLayers + 1,
         }))
       } 
@@ -265,6 +276,7 @@ class Main extends React.Component {
           isScribble: this.state.layers[num].isScribble,
           animTime: this.state.layers[num].animTime,
           size: this.state.layers[num].size,
+          id: this.state.layers[num].id,
         }
         newLayer = {
           name: `Layer #${this.state.numLayers + 1}`,
@@ -276,11 +288,12 @@ class Main extends React.Component {
           isScribble: false,
           animTime: 6,
           size: 100,
+          id: this.genID(),
         }
         
         this.state.layers.pop()
         this.setState(state => ({
-            layers: state.layers.concat([oldLayer]).concat([newLayer]),
+            layers: state.layers.concat(oldLayer).concat(newLayer),
             numLayers: state.numLayers + 1,
         }))
       } else {
@@ -294,9 +307,10 @@ class Main extends React.Component {
           isScribble: false,
           animTime: 6,
           size: 100,
+          id: this.genID(),
         }
         this.setState(state => ({
-          layers: state.layers.concat([newLayer]),
+          layers: state.layers.concat(newLayer),
           numLayers: 1,
         }))
       }
@@ -312,12 +326,12 @@ class Main extends React.Component {
       }
       if (num === this.state.numLayers) {
         this.setState(state => ({
-          layers: half1.concat([half2]),
+          layers: half1.concat(half2),
           numLayers: state.numLayers - 1, 
         }))
       } else {
         this.setState(state => ({
-          layers: half1.concat([half2]),
+          layers: half1.concat(half2),
           numLayers: state.numLayers - 1, 
         }))
       }
@@ -329,8 +343,8 @@ class Main extends React.Component {
       let half2 = this.state.layers.slice(num)
       let layer = this.state.layers[num - 1]
       console.log(layer)
-      let stats = ['name', 'number', 'path', 'strokeWidth', 'color', 'animTime', 'size']
-      let name1, number1, path1, length1, strokeWidth1, color1, isScribble1, animTime1, size1
+      let stats = ['name', 'path', 'strokeWidth', 'color', 'animTime', 'size']
+      let name1, path1, length1, strokeWidth1, color1, isScribble1, animTime1, size1
       for (let i = 0; i < stats.length; i++) {
         if (stat === stats[i]) {
           eval(stats[i] + '1 = e.target.value')
@@ -356,7 +370,7 @@ class Main extends React.Component {
       //store new value
       let newLayer = {
         name: name1,
-        number: number1,
+        number: layer.number,
         path: path1,
         length: length1,
         strokeWidth: strokeWidth1,
@@ -364,6 +378,7 @@ class Main extends React.Component {
         isScribble: isScribble1,
         animTime: animTime1,
         size: size1,
+        id: layer.id,
       }
 
       this.setState({ layers: half1.concat(newLayer).concat(half2) })
