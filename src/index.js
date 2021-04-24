@@ -383,12 +383,14 @@ class Main extends React.Component {
     genID() {
       let id = '0'
       let dupe = true
-      while (dupe) {
+      while (dupe === true) {
         dupe = false
         for (let i = 0; i < 10; i++) {
           let randInt = Math.floor(Math.random() * 10)
-          id.concat(randInt)
+          id += randInt
         }
+
+        //check for no repeat
         let layerIDs = this.state.layerIDs
         for (let i = 0; i < layerIDs.length; i++) {
           if (id === layerIDs[i]) {
@@ -396,7 +398,6 @@ class Main extends React.Component {
           }
         }
       }
-      console.log("id: " + id)
       return id
     }
 
