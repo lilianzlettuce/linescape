@@ -294,8 +294,9 @@ class Main extends React.Component {
         
         this.state.layers.pop()
         this.setState(state => ({
-            layers: state.layers.concat(oldLayer).concat(newLayer),
-            numLayers: state.numLayers + 1,
+          layers: state.layers.concat(oldLayer).concat(newLayer),
+          numLayers: state.numLayers + 1,
+          layerIDs: state.layerIDs.concat(newLayer.id),
         }))
       } else {
         newLayer = {
@@ -313,6 +314,7 @@ class Main extends React.Component {
         this.setState(state => ({
           layers: state.layers.concat(newLayer),
           numLayers: 1,
+          layerIDs: state.layerIDs.concat(newLayer.id),
         }))
       }
       console.log('numlayers:' + this.state.numLayers)
@@ -325,17 +327,10 @@ class Main extends React.Component {
       for (let i = 0; i < half2.length; i++) {
         half2[i].number = half2[i].number - 1
       }
-      if (num === this.state.numLayers) {
-        this.setState(state => ({
-          layers: half1.concat(half2),
-          numLayers: state.numLayers - 1, 
-        }))
-      } else {
-        this.setState(state => ({
-          layers: half1.concat(half2),
-          numLayers: state.numLayers - 1, 
-        }))
-      }
+      this.setState(state => ({
+        layers: half1.concat(half2),
+        numLayers: state.numLayers - 1, 
+      }))
       console.log(this.state.layers)
     }
 
@@ -387,11 +382,12 @@ class Main extends React.Component {
 
     genID() {
       let id = '0'
-      let dupe = false
-      let randInt = Math.float(Math.random() * 10)
+      let dupe = true
       while (dupe) {
+        dupe = false
         for (let i = 0; i < 10; i++) {
-          id += randInt
+          let randInt = Math.floor(Math.random() * 10)
+          id.concat(randInt)
         }
         let layerIDs = this.state.layerIDs
         for (let i = 0; i < layerIDs.length; i++) {
@@ -400,6 +396,7 @@ class Main extends React.Component {
           }
         }
       }
+      console.log("id: " + id)
       return id
     }
 
