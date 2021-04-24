@@ -14,7 +14,7 @@ export default function LayerList(props) {
         return (
             <div className="layers-container">
                 {props.saved.map(thing => (
-                    <Saved key={"saved" + thing.number} number={thing.number} name={thing.name} path={thing.path} strokeWidth={thing.strokeWidth} length={thing.length} color={thing.color} isScribble={thing.isScribble} animTime={thing.animTime} />
+                    <Saved key={thing.id} number={thing.number} name={thing.name} path={thing.path} strokeWidth={thing.strokeWidth} length={thing.length} color={thing.color} isScribble={thing.isScribble} animTime={thing.animTime} />
                 ))}
             </div>
         )

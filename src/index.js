@@ -20,7 +20,7 @@ class Main extends React.Component {
                   isScribble: false,
                   animTime: 6,
                   size: 100,
-                  id: 'a',
+                  id: '0238492743',
                 }
             ],
             numLayers: 1,
@@ -36,7 +36,7 @@ class Main extends React.Component {
                     isScribble: false,
                     animTime: 5,
                     size: 100,
-                    id: 'a',
+                    id: 'asdjfeiowfjw',
                 },
                 {
                     name: 'Large-ish Scribble',
@@ -48,7 +48,7 @@ class Main extends React.Component {
                     isScribble: true,
                     animTime: 3,
                     size: 100,
-                    id: 'a',
+                    id: 'alsjldfkjs',
                 },
                 {
                     name: 'Wolf',
@@ -60,7 +60,7 @@ class Main extends React.Component {
                     isScribble: false,
                     animTime: 3,
                     size: 100,
-                    id: 'a',
+                    id: 'awejejwelrkj',
                 },
                 {
                     name: 'lettuce',
@@ -72,7 +72,7 @@ class Main extends React.Component {
                     isScribble: false,
                     animTime: 6,
                     size: 100,
-                    id: 'a',
+                    id: 'alskdfjlskfj',
                 },
                 {
                     name: 'S',
@@ -84,7 +84,7 @@ class Main extends React.Component {
                     isScribble: false,
                     animTime: 6,
                     size: 100,
-                    id: 'a',
+                    id: 'alfkjwelfkj',
                 }
             ],
             numSaved: 0,
@@ -139,6 +139,7 @@ class Main extends React.Component {
       let newName = this.state.layers[num - 1].name
       let numReps = 0
       let names = this.state.savedNames
+      let newID
       for (let i = 0; i < names.length; i++) {
         if (names[i].substring(0, names[i].length - 4) === newName) {
           numReps++
@@ -146,8 +147,10 @@ class Main extends React.Component {
       }
       if (numReps === 0) {
         newName = this.state.layers[num - 1].name + '    '
+        newID = this.state.layers[num - 1].id
       } else {
         newName = this.state.layers[num - 1].name + ' ' + ((1.0 + numReps * 0.1).toFixed(1))
+        newID = this.state.layers[num - 1].id + numReps
       }
       const newSaved = {
         name: newName,
@@ -159,7 +162,7 @@ class Main extends React.Component {
         isScribble: this.state.layers[num - 1].isScribble,
         animTime: this.state.layers[num - 1].animTime,
         size: this.state.layers[num - 1].size,
-        id: this.state.layers[num - 1].id,
+        id: newID,
       }
       this.setState(state => ({
         saved: state.saved.concat(newSaved),
